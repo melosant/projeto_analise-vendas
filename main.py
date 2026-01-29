@@ -1,6 +1,4 @@
-def main():
-    print("Hello from projeto-analise-vendas!")
+from config.database_models import Base, engine
 
-
-if __name__ == "__main__":
-    main()
+# criação da database
+Base.metadata.create_all(bind=engine)
