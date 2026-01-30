@@ -1,4 +1,4 @@
-id_product,category,price
+id_produto,categoria,valor
 PROD-001,Eletrônicos,29.76
 PROD-002,Roupas,203.46 
 PROD-003,moveis,591.81

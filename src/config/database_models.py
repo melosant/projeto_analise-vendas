@@ -1,11 +1,9 @@
 # import libs
 from sqlalchemy import create_engine, Column, Integer, Date, String, Float
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import declarative_base
 
 # criação engine, início de sessão e declaração de base
 engine = create_engine('sqlite:///data/database.db')
-Session = sessionmaker()
-session = Session()
 Base = declarative_base()
 
 # criação das tabelas

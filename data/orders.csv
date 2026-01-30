@@ -1,4 +1,4 @@
-id_order,date,id_product,id_store,qtd
+id_venda,data,id_produto,loja_id,quantidade
 60019,2024-11-01,PROD-030,,4
 42953,2024-10-10,PROD-001,LJ-02,5
 99353,2024-10-01,PROD-049,LJ-05,3
