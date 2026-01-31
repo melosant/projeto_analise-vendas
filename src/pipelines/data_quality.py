@@ -1,27 +1,39 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from src.config.database_models import engine
 from src.pipelines.processing import ProcessingData
-from src.functions.common_func import processing_column_money
 
-def insight_data_quality():
+
+def insight_dirty_cost():
+    '''
+    gera um df concatenado contendo informações de total de pedidos e de faturamento antes e pós tratamento.
+    '''
     data = ProcessingData()
-    df_orders = pd.read_sql('orders_fact', engine)
-    df_orders_dirty = data.df_fact_dirty
 
-    df_sum_dirty = df_orders_dirty.agg({
-            'valor': ['sum']
-    })
-    df_sum_clean = df_orders.agg({
-        'price' : ['sum']
-    })
+    # importação e seleção das colunas
+    df_order = pd.read_sql('orders_fact' , engine)
+    df_order_clean = df_order[['id_order', 'price']]
+    df_order_dirty = data.df_fact_dirty
+    df_order_dirty_fat = df_order_dirty[['id_venda', 'valor']]
 
-    labels = ['Faturamento Sujo','Faturamento Limpo']
-    values = [df_sum_dirty['valor']['sum'], df_sum_clean['price']['sum']]
-    plt.bar(labels, values)
-    plt.title('Custo da Sujeira')
-    plt.show()
+    # concatenando e fazendo agreagações
+    df_concat = pd.concat([df_order_dirty_fat, df_order_clean], axis=1)
+    df_concat_stats = df_concat.agg({
+    'id_venda': ['count'],
+    'id_order': ['count'],
+    'valor': ['sum'],
+    'price': ['sum']
+})
 
-if __name__ == '__main__':
-    insight_data_quality()
+    # soma para tirar os nulls
+    df_final = df_concat_stats.sum().to_frame().T
+
+    df_final.columns = ['orders_dirty', 'orders_clean', 'sum_dirty', 'sum_clean']
+    df_final['diff_counts'] = df_final['orders_dirty'] - df_final['orders_clean']
+    
+    # stack para transformar as colunas em linhas
+    df_stack = df_final.stack().reset_index()
+    df_stack.columns = ['index', 'Tipo', 'Valores']
+    df_stack.drop('index', axis=1, inplace=True)
+
+    return df_stack
