@@ -34,7 +34,7 @@ class ProcessingData:
         df_stores_clean.columns = ['id_store', 'city']
         
         # conversão de tipos de colunas e replaces
-        df_orders_copy['date_purchase'] = pd.to_datetime(df_orders_copy['date_purchase'], format='mixed', errors='coerce')
+        df_orders_copy['date_purchase'] = pd.to_datetime(df_orders_copy['date_purchase'], format='mixed', errors='coerce').dt.year
         df_orders_clean = df_orders_copy.dropna()
         df_products_copy['price'] = processing_column_money(df_products_copy['price'])
         df_products_clean= df_products_copy.assign(price = df_products_copy['price'].astype('float64'))
