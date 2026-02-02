@@ -15,7 +15,7 @@ class Orders_Facts(Base):
     id_store = Column('id_store', String)
     category = Column('category', String)
     price = Column('price', Float)
-    date_purchase = Column('date_purchase', Date)
+    date_purchase = Column('date_purchase', String)
     qtd = Column('quantity', Integer)
 
     def __init__(self, id_order, id_product, id_store, category, price, date_purchase, qtd):
