@@ -24,7 +24,7 @@ class ProcessingData:
         '''
 
         # dropando valores nulos das vendas para um dataframe limpo
-        df_orders_copy = self.df_orders_dirty.dropna()
+        df_orders_copy = self.df_orders_dirty.dropna(subset=['loja_id'])
         df_products_copy = self.df_products_dirty
         df_stores_clean = self.df_stores_dirty
 
@@ -49,7 +49,3 @@ class ProcessingData:
         df_tabel_fact.to_sql('orders_fact', engine, if_exists='replace', index=False)
         df_products_clean.to_sql('products_dim', engine, if_exists='replace', index=False)
         df_stores_clean.to_sql('stores_dim', engine, if_exists='replace', index=False)
-
-if __name__ == '__main__':
-    test = ProcessingData()
-    test.processing_dfs()
