@@ -12,7 +12,7 @@ def insight_dirty_cost():
 
     # importação e seleção das colunas
     df_order = pd.read_sql('orders_fact' , engine)
-    df_order_clean = df_order[['id_order', 'price', 'date_purchase', 'id_store']]
+    df_order_clean = df_order[['id_order', 'price', 'date_purchase', 'id_store', 'id_product']]
     df_order_dirty = data.df_fact_dirty
     df_order_dirty_fat = df_order_dirty[['id_venda', 'valor', 'data', 'loja_id']]
 

@@ -37,3 +37,6 @@ venv.bak/
 
 *.db
 README1.md
+
+insight_off.ipynb
+insight_off2.ipynb
