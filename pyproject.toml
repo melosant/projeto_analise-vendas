@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14.2"
 dependencies = [
+    "kaleido>=1.2.0",
     "notebook>=7.5.3",
     "pandas>=3.0.0",
     "plotly>=6.5.2",
